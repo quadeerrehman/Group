@@ -540,7 +540,7 @@ const PeopleSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publicat
     {
       name: "Annalisa Bruno",
       role: "Principal Investigator",
-      image: "/Annalisa.png",
+      image: "/Annalisa.jpg",
       focus: "My research interests range from hybrid halide perovskite materials' optical and electrical properties to their implementation in a variety of optoelectronic devices. Recently I mostly focused on the development of highly efficient  single junctions solar cells and minimodules by thermal evaporation..",
     },
   
