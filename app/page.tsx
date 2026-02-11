@@ -29,18 +29,18 @@ const scrollToId = (id: string) => {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-const sectionTitleVariants = {
+export const sectionTitleVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: { opacity: 1, y: 0 },
 };
 
-const fadeInVariants = {
+export const fadeInVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = React.useState<'home' | 'full-team' | 'publications'>('home');
+  const [currentPage, setCurrentPage] = React.useState<'home' | 'full-team'>('home');
 
   return (
     <div className="min-h-screen text-slate-900 font-sans relative overflow-hidden">
@@ -53,7 +53,7 @@ const App: React.FC = () => {
         aria-hidden="true"
       />
       <div className="relative z-10">
-        <SiteNav setPage={setCurrentPage} />
+        <SiteNav /> 
         <main className="mx-auto flex max-w-6xl flex-col gap-24 px-4 pb-24 pt-24 sm:px-6 lg:px-8">
           {currentPage === 'home' && (
             <>
@@ -68,7 +68,6 @@ const App: React.FC = () => {
             </>
           )}
           {currentPage === 'full-team' && <FullTeamPage setPage={setCurrentPage} />}
-          {currentPage === 'publications' && <PublicationsPage setPage={setCurrentPage} />}
         </main>
         <Footer />
       </div>
@@ -77,7 +76,7 @@ const App: React.FC = () => {
 };
 
 // NAVBAR – warm, light, slightly translucent
-const SiteNav: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications') => void }> = ({ setPage }) => {
+const SiteNav: React.FC = () => {
   const navItems = [
     { id: "story", label: "Story" },
     { id: "research", label: "Research" },
@@ -88,19 +87,18 @@ const SiteNav: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications')
     { id: "contact", label: "Contact" },
   ];
 
-
   return (
     <header className="sticky inset-x-0 top-0 z-30 border-b border-amber-200/80 bg-orange-50/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <button
-          onClick={() => setPage('home')}
+        <a
+          href="/"
           className="flex items-center gap-2 rounded-full border border-orange-300/90 bg-white/80 px-3 py-1 text-xs font-medium tracking-wide text-orange-700 shadow-sm transition hover:border-orange-400 hover:bg-orange-50"
         >
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-amber-300 text-white">
             <Sparkles className="h-3.5 w-3.5" />
           </span>
           <span className="uppercase">Perovskite Story</span>
-        </button>
+        </a>
 
         <nav className="hidden items-center gap-4 text-xs font-medium text-amber-900 sm:flex">
           {navItems.map((item) => (
@@ -278,14 +276,79 @@ const StorySection: React.FC = () => {
       text: "Transport layers, contacts and interfaces are tuned for voltage, current and long-term stability.",
     },
     {
-      title: "We study properties to guide desogn ",
+      title: "We study properties to guide design ",
       icon: <SunMedium className="h-4 w-4" />,
       text: "Optoelectronic measurements and device physics help us connect spectra, microstructure and performance. Those insights feed back into how we choose compositions, interfaces and layouts for the next generation of devices and mini-modules.",
     },
   ];
 
+  const router = require('next/navigation').useRouter();
   return (
     <section id="story" className="space-y-8">
+      {/* Research schematic from Circle.svg (larger, more transparent) */}
+      <motion.div
+        className="rounded-4xl border border-amber-100 bg-white/150 p-5 shadow-sm shadow-amber-100"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeInVariants}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-rose-400 text-white">
+              <Atom className="h-3.5 w-3.5" />
+            </span>
+            Our Topics
+          </span>
+          <span className="text-[0.65rem] text-rose-500"></span>
+        </div>
+
+        <div className="relative mx-auto max-w-5xl">
+          <img
+            src="/Circle1.png"
+            alt="Research schematic"
+            className="w-full h-auto opacity-100When 0"
+          />
+          {/* Overlay invisible clickable SVG wedges */}
+          <svg
+            viewBox="0 0 400 400"
+            width="100%"
+            height="auto"
+            className="absolute top-0 left-0 w-full h-full"
+            style={{ pointerEvents: 'none' }}
+          >
+            {/* Wedge 1: 0° to 120° (now Absorbers) */}
+            <path
+              d="M200,200 L200,50 A150,150 0 0,1 325,275 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/absorbers')}
+            />
+            {/* Wedge 2: 120° to 240° (now Multi QWs) */}
+            <path
+              d="M200,200 L325,275 A150,150 0 0,1 75,275 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/multiqws')}
+            />
+            {/* Wedge 3: 240° to 360° (now Emitters) */}
+            <path
+              d="M200,200 L75,275 A150,150 0 0,1 200,50 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/emitters')}
+            />
+          </svg>
+        </div>
+      </motion.div>
+
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -534,7 +597,7 @@ const MethodsSection: React.FC = () => {
 };
 
 // PEOPLE – "Earthy Rose" vibe
-const PeopleSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications') => void }> = ({ setPage }) => {
+const PeopleSection: React.FC<{ setPage: (page: 'home' | 'full-team') => void }> = ({ setPage }) => {
   // TODO: Replace these with your actual people. You can expand this list or fetch from JSON.
   const people = [
     {
@@ -655,29 +718,32 @@ const PeopleSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publicat
 };
 
 // OUTPUTS / PAPERS / TOOLS – warm cards
-const OutputsSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications') => void }> = ({ setPage }) => {
-  // TODO: Replace placeholder entries with real publications / tools
+const OutputsSection: React.FC<{ setPage: (page: 'home' | 'full-team') => void }> = ({ setPage }) => {
+  // Most cited papers for each topic
   const outputs = [
     {
-      type: "Paper",
-      title: "[Title of a flagship paper]",
-      where: "Journal · Year",
-      blurb: "TODO: One-line summary in plain language about what this work changed or showed.",
-      link: "#",
+      type: "Absorbers",
+      title: "Highly efficient thermally co-evaporated perovskite solar cells and mini-modules",
+      where: "Joule, 2020",
+      blurb: "This paper demonstrated record efficiency and scalability for evaporated perovskite solar cells and mini-modules.",
+      link: "https://doi.org/10.1016/j.joule.2020.07.013",
+      citedBy: 396,
     },
     {
-      type: "Paper",
-      title: "[Title of a recent paper]",
-      where: "Journal name",
-      blurb: "TODO: A short description of why this paper matters.",
-      link: "#",
+      type: "Emitters",
+      title: "Lead iodide perovskite light-emitting field-effect transistor",
+      where: "Nature Communications, 2015",
+      blurb: "First demonstration of perovskite light-emitting transistors, opening new directions for optoelectronic devices.",
+      link: "https://www.nature.com/articles/ncomms7767",
+      citedBy: 875,
     },
     {
-      type: "Patents",
-      title: "[Name of a code, dataset, or protocol]",
-      where: "",
-      blurb: "TODO: Describe any patents.",
-      link: "#",
+      type: "Multi QWs",
+      title: "Perovskite multiple quantum well superlattices: potentials and challenges",
+      where: "ACS Energy Letters, 2024",
+      blurb: "Comprehensive review of perovskite quantum well superlattices, their properties, and future challenges.",
+      link: "https://pubs.acs.org/doi/10.1021/acsenergylett.3c02712",
+      citedBy: 22,
     },
   ];
 
@@ -691,7 +757,7 @@ const OutputsSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publica
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
-          05 · Publications &amp; 
+          05 · Publications 
         </h2>
         <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
           Some important and recent papers
@@ -709,28 +775,39 @@ const OutputsSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publica
         {outputs.map((o, idx) => (
           <div
             key={idx}
-            className="flex flex-col gap-3 rounded-2xl border border-orange-200/80 bg-white/90 p-4 text-xs text-slate-700 sm:flex-row sm:items-center sm:justify-between sm:text-sm"
+            className={`flex flex-col gap-3 rounded-2xl border bg-white/90 p-4 text-xs text-slate-700 sm:flex-row sm:items-center sm:justify-between sm:text-sm ${
+              o.type === "Absorbers"
+                ? "border-lime-200"
+                : o.type === "Emitters"
+                ? "border-rose-200"
+                : "border-cyan-200"
+            }`}
           >
             <div className="space-y-1">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-orange-600">
+              <p className={`text-[0.7rem] font-semibold uppercase tracking-wide ${
+                o.type === "Absorbers"
+                  ? "text-lime-700"
+                  : o.type === "Emitters"
+                  ? "text-rose-700"
+                  : "text-cyan-700"
+              }`}>
                 {o.type}
               </p>
               <p className="text-sm font-semibold text-slate-900 sm:text-base">{o.title}</p>
               <p className="text-[0.75rem] text-slate-500">{o.where}</p>
               <p className="max-w-2xl text-[0.8rem] text-slate-700">{o.blurb}</p>
+              <p className="text-[0.7rem] text-slate-500">Cited by: {o.citedBy}</p>
             </div>
             <div className="flex items-center gap-3">
-              {o.link && o.link !== "#" ? (
-                <a
-                  href={o.link}
-                  className="inline-flex items-center gap-2 rounded-full border border-amber-300 px-3 py-1 text-[0.75rem] font-medium text-amber-800 transition hover:bg-amber-50"
-                >
-                  <BookOpen className="h-3.5 w-3.5" />
-                  View
-                </a>
-              ) : (
-                <span className="text-[0.7rem] text-slate-500">TODO: Add link</span>
-              )}
+              <a
+                href={o.link}
+                className="inline-flex items-center gap-2 rounded-full border border-amber-300 px-3 py-1 text-[0.75rem] font-medium text-amber-800 transition hover:bg-amber-50"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BookOpen className="h-3.5 w-3.5" />
+                View
+              </a>
             </div>
           </div>
         ))}
@@ -739,13 +816,13 @@ const OutputsSection: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publica
       <div className="rounded-2xl border border-dashed border-amber-200 bg-amber-50/80 p-4 text-xs text-slate-700 sm:text-sm">
         <p className="font-semibold text-amber-900">Full publication list</p>
         <p className="mt-1">See everything we have published.</p>
-        <button
-          onClick={() => setPage('publications')}
+        <a
+          href="/publications"
           className="mt-3 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white/90 px-4 py-2 text-[0.8rem] font-semibold text-amber-800 transition hover:bg-amber-50"
         >
           <BookOpen className="h-4 w-4" />
           View publications
-        </button>
+        </a>
       </div>
     </section>
   );
@@ -897,9 +974,9 @@ const Footer: React.FC = () => {
 };
 
 // FULL TEAM PAGE
-const FullTeamPage: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications') => void }> = ({ setPage }) => {
+const FullTeamPage: React.FC<{ setPage: (page: 'home' | 'full-team') => void }> = ({ setPage }) => {
   return (
-    <section className="space-y-8">
+    <section className="space-y-12">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -924,58 +1001,179 @@ const FullTeamPage: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publicati
         </p>
       </motion.div>
 
-      <div className="rounded-2xl border border-amber-200/80 bg-white/90 p-6 text-sm text-slate-700">
-        <p className="font-semibold text-slate-900 mb-4">
-          TODO: Add full team member list with photos, roles, and research interests.
-        </p>
-        <p>
-          This page will display all current group members, alumni, and visiting researchers with their bios and contact information.
-        </p>
+      {/* Schematic box: Circle.svg, styled same as main page */}
+      <motion.div
+        className="rounded-4xl border border-amber-100 bg-white/0 p-2 shadow-sm shadow-amber-100"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeInVariants}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-rose-400 text-white">
+              <Atom className="h-3.5 w-3.5" />
+            </span>
+            Our Topics
+          </span>
+          <span className="text-[0.65rem] text-rose-500"></span>
+        </div>
+        <div className="relative mx-auto max-w-xl">
+          <img
+            src="/Circle.svg"
+            alt="Research schematic"
+            className="w-full h-auto opacity-80"
+          />
+        </div>
+      </motion.div>
+
+      {/* Team sections stacked vertically, multiple people per section */}
+      <div className="flex flex-col gap-12 mt-8">
+        {/* Absorbers Section */}
+        <section>
+          <h3 className="mb-6 text-xl font-bold text-lime-700">Absorbers</h3>
+          <div className="flex flex-col gap-6">
+            {/* Riyas */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Riyas.png" alt="Riyas" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Riyas</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nunc vel risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque habitant morbi tristique senectus et netus.</p>
+              </div>
+            </div>
+            {/* Edo */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Edo.png" alt="Edo" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Edo</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Research Associate</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Edo's work on absorbers.</p>
+              </div>
+            </div>
+            {/* Jin */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Jin.png" alt="Jin" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Jin</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Jin's work on absorbers.</p>
+              </div>
+            </div>
+            {/* Li Ling */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Li ling.png" alt="Li Ling" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Li Ling</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Li Ling's work on absorbers.</p>
+              </div>
+            </div>
+            {/* Herlina */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Herlina.png" alt="Herlina" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Herlina</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Senior Research Scientist</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Herlina's work on absorbers.</p>
+              </div>
+            </div>
+            {/* Daniela */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Daniela.png" alt="Daniela" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Daniela</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Daniela's work on absorbers.</p>
+              </div>
+            </div>
+            {/* Thambi */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-lime-100 border border-lime-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Thambi.png" alt="Thambi" className="w-24 h-24 rounded-xl object-cover border border-lime-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Thambi</h3>
+                <p className="text-[0.9rem] font-medium text-lime-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Thambi's work on absorbers.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Emitters Section */}
+        <section>
+          <h3 className="mb-6 text-xl font-bold text-rose-700">Emitters</h3>
+          <div className="flex flex-col gap-6">
+            {/* Tang */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-rose-100 border border-rose-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Tang.png" alt="Tang" className="w-24 h-24 rounded-xl object-cover border border-rose-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Tang</h3>
+                <p className="text-[0.9rem] font-medium text-rose-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nunc vel risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque habitant morbi tristique senectus et netus.</p>
+              </div>
+            </div>
+            {/* Trevor */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-rose-100 border border-rose-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Trevor.png" alt="Trevor" className="w-24 h-24 rounded-xl object-cover border border-rose-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Trevor</h3>
+                <p className="text-[0.9rem] font-medium text-rose-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Trevor's work on emitters.</p>
+              </div>
+            </div>
+            {/* Yao */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-rose-100 border border-rose-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Yao.png" alt="Yao" className="w-24 h-24 rounded-xl object-cover border border-rose-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Yao</h3>
+                <p className="text-[0.9rem] font-medium text-rose-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Yao's work on emitters.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Multi QWs Section */}
+        <section>
+          <h3 className="mb-6 text-xl font-bold text-cyan-700">Multi QWs</h3>
+          <div className="flex flex-col gap-6">
+            {/* Jaume */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-cyan-100 border border-cyan-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Jaume.png" alt="Jaume" className="w-24 h-24 rounded-xl object-cover border border-cyan-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Jaume</h3>
+                <p className="text-[0.9rem] font-medium text-cyan-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nunc vel risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque habitant morbi tristique senectus et netus.</p>
+              </div>
+            </div>
+            {/* Alex */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-cyan-100 border border-cyan-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/Alex.png" alt="Alex" className="w-24 h-24 rounded-xl object-cover border border-cyan-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">Alex</h3>
+                <p className="text-[0.9rem] font-medium text-cyan-700">Research Fellow</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing Alex's work on Multi QWs.</p>
+              </div>
+            </div>
+            {/* George */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-cyan-100 border border-cyan-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/George.png" alt="George" className="w-24 h-24 rounded-xl object-cover border border-cyan-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">George</h3>
+                <p className="text-[0.9rem] font-medium text-cyan-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing George's work on Multi QWs.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );
 };
 
 // PUBLICATIONS PAGE
-const PublicationsPage: React.FC<{ setPage: (page: 'home' | 'full-team' | 'publications') => void }> = ({ setPage }) => {
-  return (
-    <section className="space-y-8">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={sectionTitleVariants}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
-            Full Publications
-          </h2>
-          <button
-            onClick={() => setPage('home')}
-            className="rounded-full border border-rose-200 bg-white/80 px-4 py-2 text-xs font-medium text-rose-700 transition hover:bg-rose-50"
-          >
-            ← Back to home
-          </button>
-        </div>
-        <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
-          TODO: Add full publication list here.
-        </p>
-      </motion.div>
-
-      <div className="rounded-2xl border border-dashed border-amber-200 bg-amber-50/80 p-6 text-sm text-slate-700">
-        <p className="font-semibold text-amber-900">Placeholder</p>
-        <p className="mt-2 text-slate-700">
-          <a
-            href="https://scholar.google.co.in/citations?hl=en&user=zeI8v6YAAAAJ&view_op=list_works&sortby=pubdate"
-            className="text-amber-800 underline hover:text-amber-700"
-          >
-            Google Scholar – full list
-          </a>
-        </p>
-      </div>
-    </section>
-  );
-};
+// Moved to app/publications/page.tsx for better separation of concerns
 
 export default App;
+
