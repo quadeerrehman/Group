@@ -39,8 +39,8 @@ export const absorbers: TopicContent = {
   ],
   whatWeBuild: [
     { title: "Single-junction solar cell", description: "Co-evaporated perovskite stack for high Voc." },
-    { title: "Mini-module", description: "Patterned interconnects for scalable power output." },
-    { title: "Photodetector", description: "Optimized for fast, sensitive light detection." }
+    { title: "Tandem solar cell", description: "Stacked cells for higher voltage and efficiency." },
+    { title: "Lorem ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
   ],
   knobs: [
     { title: "Composition", description: "Bandgap tuning by co-evaporation." },
@@ -59,9 +59,9 @@ export const absorbers: TopicContent = {
     { title: "Stability", description: "Long-term device operation tests." }
   ],
   projects: [
-    { title: "Voltage-first interface design", claim: "We reduce interfacial recombination.", mechanism: "Engineering transport-layer alignment.", consequence: "Higher Voc at scalable thickness." },
-    { title: "Large-area composition control", claim: "Uniformity across modules.", mechanism: "Co-evaporation with process windows.", consequence: "Scalable mini-modules." },
-    { title: "Mini-module layout", claim: "Efficient interconnects.", mechanism: "Patterned electrodes and stacks.", consequence: "Higher power output." }
+    { title: "Flagship Project 1", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 2", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 3", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." }
   ],
   figures: [
     { src: "/pvk.png", alt: "Stack schematic", captionWhat: "Device stack schematic", captionWhy: "Shows engineered layers." },
@@ -93,9 +93,9 @@ export const emitters: TopicContent = {
     "We tune composition and interfaces for robust emission."
   ],
   whatWeBuild: [
-    { title: "Perovskite LED", description: "Engineered for high brightness and color purity." },
-    { title: "Quantum emitter", description: "Single-photon emission for quantum tech." },
-    { title: "Light-emitting transistor", description: "Combines charge transport and emission." }
+    { title: "Quantum dots", description: "Colloidal nanocrystals for tunable emission." },
+    { title: "Superfluorescence", description: "Collective emission phenomena in perovskites." },
+    { title: "Lorem ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
   ],
   knobs: [
     { title: "Composition", description: "Bandgap and color tuning." },
@@ -109,14 +109,14 @@ export const emitters: TopicContent = {
     { title: "EL", description: "Electroluminescence for device performance." },
     { title: "PL", description: "Photoluminescence for emission quality." },
     { title: "TRPL", description: "Carrier lifetime analysis." },
-    { title: "Color purity", description: "Spectral analysis." },
+    { title: "Lorem ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
     { title: "Stability", description: "Operational lifetime tests." },
     { title: "Efficiency", description: "Light output per input." }
   ],
   projects: [
-    { title: "Stable EL devices", claim: "We achieve stable electroluminescence.", mechanism: "Encapsulation and interface engineering.", consequence: "Long-lived LEDs." },
-    { title: "Quantum emitter tuning", claim: "Single-photon emission.", mechanism: "Dimensionality and composition control.", consequence: "Quantum-ready devices." },
-    { title: "Color purity enhancement", claim: "High color purity.", mechanism: "Bandgap engineering.", consequence: "Better displays and sensors." }
+    { title: "Flagship Project 1", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 2", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 3", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." }
   ],
   figures: [
     { src: "/pvk.png", alt: "LED schematic", captionWhat: "LED schematic", captionWhy: "Shows emission layers." },
@@ -169,9 +169,9 @@ export const multiqws: TopicContent = {
     { title: "Stability", description: "Operational lifetime tests." }
   ],
   projects: [
-    { title: "Stacked QW photodetector", claim: "Enhanced detection via stacking.", mechanism: "Quantum well engineering.", consequence: "Higher sensitivity." },
-    { title: "Multi-QW solar cell", claim: "Efficiency boost from dimensionality.", mechanism: "Layer and composition control.", consequence: "Better power output." },
-    { title: "Multi-QW LED", claim: "Combined emission and transport.", mechanism: "Stacked wells and interfaces.", consequence: "Advanced optoelectronic function." }
+    { title: "Flagship Project 1", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 2", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." },
+    { title: "Flagship Project 3", claim: "Lorem ipsum dolor sit amet.", mechanism: "Lorem ipsum.", consequence: "Lorem ipsum." }
   ],
   figures: [
     { src: "/pvk.png", alt: "QW schematic", captionWhat: "QW schematic", captionWhy: "Shows stacked wells." },

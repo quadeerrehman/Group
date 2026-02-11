@@ -249,7 +249,7 @@ const HeroSection: React.FC = () => {
 
           <div className="mt-3 rounded-2xl border border-dashed border-orange-200 bg-amber-50/60 p-2 text-[0.65rem] text-slate-700">
             <p className="text-[0.6rem] font-semibold uppercase tracking-wide text-amber-800">
-              TODO: Put some graphics
+              
             </p>
             <p className="mt-1">
               Need to put image here. 
