@@ -282,73 +282,9 @@ const StorySection: React.FC = () => {
     },
   ];
 
-  const router = require('next/navigation').useRouter();
   return (
     <section id="story" className="space-y-8">
-      {/* Research schematic from Circle.svg (larger, more transparent) */}
-      <motion.div
-        className="rounded-4xl border border-amber-100 bg-white/150 p-5 shadow-sm shadow-amber-100"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInVariants}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs mb-4">
-          <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-rose-400 text-white">
-              <Atom className="h-3.5 w-3.5" />
-            </span>
-            Our Topics
-          </span>
-          <span className="text-[0.65rem] text-rose-500"></span>
-        </div>
-
-        <div className="relative mx-auto max-w-5xl">
-          <img
-            src="/Circle1.png"
-            alt="Research schematic"
-            className="w-full h-auto opacity-100When 0"
-          />
-          {/* Overlay invisible clickable SVG wedges */}
-          <svg
-            viewBox="0 0 400 400"
-            width="100%"
-            height="auto"
-            className="absolute top-0 left-0 w-full h-full"
-            style={{ pointerEvents: 'none' }}
-          >
-            {/* Wedge 1: 0° to 120° (now Absorbers) */}
-            <path
-              d="M200,200 L200,50 A150,150 0 0,1 325,275 Z"
-              fill="transparent"
-              stroke="transparent"
-              strokeWidth="20"
-              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-              onClick={() => router.push('/absorbers')}
-            />
-            {/* Wedge 2: 120° to 240° (now Multi QWs) */}
-            <path
-              d="M200,200 L325,275 A150,150 0 0,1 75,275 Z"
-              fill="transparent"
-              stroke="transparent"
-              strokeWidth="20"
-              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-              onClick={() => router.push('/multiqws')}
-            />
-            {/* Wedge 3: 240° to 360° (now Emitters) */}
-            <path
-              d="M200,200 L75,275 A150,150 0 0,1 200,50 Z"
-              fill="transparent"
-              stroke="transparent"
-              strokeWidth="20"
-              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-              onClick={() => router.push('/emitters')}
-            />
-          </svg>
-        </div>
-      </motion.div>
-
+      {/* Story section now only contains the steps and the group context box */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -362,7 +298,7 @@ const StorySection: React.FC = () => {
         <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
           Our story starts in the vacuum chamber rather than the beaker. We design evaporated
           perovskite films, stack them into devices, and then learn how to wire many of those
-          pixels together into robust mini-modules.
+          pixels together into robust Single-junction and Tandem solar cells.
         </p>
       </motion.div>
 
@@ -409,45 +345,7 @@ const StorySection: React.FC = () => {
 
 // RESEARCH MAP – "Citrus Burst" accents
 const ResearchMapSection: React.FC = () => {
-  const areas = [
-    {
-      title: "Evaporated single-junction solar cells",
-      icon: <SunMedium className="h-4 w-4" />,
-      text: "We co-evaporate high-quality perovskite absorber layers and transport stacks to push efficiency and voltage.",
-      bullets: [
-        "Composition and bandgap engineering by co-evaporation",
-        "Optimised transport layers and contacts for high Voc",
-      ],
-    },
-    {
-      title: "Mini-modules & scalable architectures",
-      icon: <Layers className="h-4 w-4" />,
-      text: "We pattern and interconnect many cells to form efficient, uniform mini-modules on larger areas.",
-      bullets: [
-        "Interconnection and layout design for mini-modules",
-        "Process windows for uniform large-area deposition",
-      ],
-    },
-    {
-      title: "Perovskite emitters & optoelectronic devices",
-      icon: <Sparkles className="h-4 w-4" />,
-      text: "We also explore perovskites as light emitters in LEDs and other advanced optoelectronic structures.",
-      bullets: [
-        "Perovskite LEDs and light-emitting devices",
-        "Mixed-dimensional and quantum-well inspired stacks",
-      ],
-    },
-    {
-      title: "Spectroscopy & device physics",
-      icon: <Microscope className="h-4 w-4" />,
-      text: "We use spectroscopy and electrical characterisation to understand recombination, defects and stability.",
-      bullets: [
-        "Time-resolved and steady-state spectroscopy",
-        "Linking device metrics to microscopic mechanisms",
-      ],
-    },
-  ];
-
+  const router = require('next/navigation').useRouter();
   return (
     <section id="research" className="space-y-8">
       <motion.div
@@ -462,47 +360,73 @@ const ResearchMapSection: React.FC = () => {
         </h2>
         <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
           Our main focus is on thermally evaporated hybrid perovskites for high-efficiency solar
-          cells and mini-modules, with parallel threads on emitters and fundamental device
+          cells and be it single-junction or tandem, with parallel threads on emitters, Multi-QWs and fundamental device
           physics.
         </p>
       </motion.div>
 
+      {/* Moved Circle1 schematic with clickable wedges here */}
       <motion.div
-        className="grid gap-4 md:grid-cols-2"
+        className="rounded-4xl border border-amber-100 bg-white/150 p-5 shadow-sm shadow-amber-100"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInVariants}
-        transition={{ duration: 0.5, delay: 0.05 }}
+        transition={{ duration: 0.5 }}
       >
-        {areas.map((area) => (
-          <Card
-            key={area.title}
-            className="flex h-full flex-col border border-amber-200/90 bg-white/90 shadow-sm shadow-amber-100"
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-rose-400 text-white">
+              <Atom className="h-3.5 w-3.5" />
+            </span>
+            Our Topics
+          </span>
+          <span className="text-[0.65rem] text-rose-500"></span>
+        </div>
+
+        <div className="relative mx-auto max-w-5xl">
+          <img
+            src="/Circle1.png"
+            alt="Research schematic"
+            className="w-full h-auto"
+          />
+          {/* Overlay invisible clickable SVG wedges */}
+          <svg
+            viewBox="0 0 400 400"
+            width="100%"
+            height="auto"
+            className="absolute top-0 left-0 w-full h-full"
+            style={{ pointerEvents: 'none' }}
           >
-            <CardHeader className="flex flex-row items-start justify-between gap-3 pb-2">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-400 to-rose-400 text-white">
-                    {area.icon}
-                  </span>
-                  Focus area
-                </div>
-                <CardTitle className="mt-2 text-sm font-semibold text-slate-900 sm:text-base">
-                  {area.title}
-                </CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 space-y-3 text-xs text-slate-700 sm:text-sm">
-              <p>{area.text}</p>
-              <ul className="list-disc space-y-1 pl-4 text-[0.7rem] text-slate-600 sm:text-xs">
-                {area.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        ))}
+            {/* Wedge 1: 0° to 120° (Absorbers) */}
+            <path
+              d="M200,200 L200,50 A150,150 0 0,1 325,275 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/absorbers')}
+            />
+            {/* Wedge 2: 120° to 240° (Multi QWs) */}
+            <path
+              d="M200,200 L325,275 A150,150 0 0,1 75,275 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/multiqws')}
+            />
+            {/* Wedge 3: 240° to 360° (Emitters) */}
+            <path
+              d="M200,200 L75,275 A150,150 0 0,1 200,50 Z"
+              fill="transparent"
+              stroke="transparent"
+              strokeWidth="20"
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              onClick={() => router.push('/emitters')}
+            />
+          </svg>
+        </div>
       </motion.div>
     </section>
   );
@@ -1163,6 +1087,15 @@ const FullTeamPage: React.FC<{ setPage: (page: 'home' | 'full-team') => void }> 
                 <h3 className="text-2xl font-bold text-slate-900">George</h3>
                 <p className="text-[0.9rem] font-medium text-cyan-700">PhD Student</p>
                 <p className="mt-2 text-sm text-slate-700">Short paragraph describing George's work on Multi QWs.</p>
+              </div>
+            </div>
+            {/* William */}
+            <div className="bg-white/90 rounded-xl shadow-lg shadow-cyan-100 border border-cyan-200 flex flex-col sm:flex-row items-center gap-6 p-6">
+              <img src="/Sketches/William.png" alt="William" className="w-24 h-24 rounded-xl object-cover border border-cyan-200" />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">William</h3>
+                <p className="text-[0.9rem] font-medium text-cyan-700">PhD Student</p>
+                <p className="mt-2 text-sm text-slate-700">Short paragraph describing William's work on Multi QWs.</p>
               </div>
             </div>
           </div>
